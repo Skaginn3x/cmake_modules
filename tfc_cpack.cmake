@@ -50,3 +50,29 @@ set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/../LICENSE)
 set(CPACK_RESOURCE_FILE_README ${CMAKE_CURRENT_LIST_DIR}/../readme.md)
 
 include(CPack)
+
+function(add_component TARGET_NAME DESCRIPTION)
+  # Determine component name and display name based on build type
+  set(COMPONENT_NAME ${TARGET_NAME})
+  set(DISPLAY_NAME ${TARGET_NAME})
+  if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(COMPONENT_NAME "${TARGET_NAME}-dbg")
+    set(DISPLAY_NAME "${TARGET_NAME} (Debug)")
+  endif ()
+
+  # Install the target
+  install(
+    TARGETS ${TARGET_NAME}
+    DESTINATION ${CMAKE_INSTALL_BINDIR}
+    COMPONENT ${COMPONENT_NAME}
+  )
+
+  # Add the component to CPack
+  cpack_add_component(
+    ${COMPONENT_NAME}
+    DISPLAY_NAME ${DISPLAY_NAME}
+    DESCRIPTION ${DESCRIPTION}
+    GROUP ${COMPONENT_NAME}
+    INSTALL_TYPES Full
+  )
+endfunction()
