@@ -56,7 +56,7 @@ function(tfc_cpack_init LICENSE_PATH README_PATH)
   include(CPack)
 endfunction()
 
-function(add_component TARGET_NAME DESCRIPTION)
+function(tfc_add_component TARGET_NAME DESCRIPTION)
   # Determine component name and display name based on build type
   set(COMPONENT_NAME ${TARGET_NAME})
   set(DISPLAY_NAME ${TARGET_NAME})
