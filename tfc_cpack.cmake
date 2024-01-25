@@ -1,5 +1,9 @@
 
 function(tfc_cpack_init LICENSE_PATH README_PATH)
+  set (CPACK_DEB_COMPONENT_INSTALL ON)
+  set (CPACK_RPM_COMPONENT_INSTALL ON)
+  set (CPACK_ARCHIVE_COMPONENT_INSTALL ON)
+
   # get glibc version from host
   execute_process(
       COMMAND bash -c "ldd --version | awk '/ldd/{print $NF;exit}'"
@@ -55,10 +59,6 @@ function(tfc_cpack_init LICENSE_PATH README_PATH)
 endfunction()
 
 function(tfc_add_component_group TARGET_NAME GROUP_NAME DESCRIPTION)
-  set (CPACK_DEB_COMPONENT_INSTALL ON)
-  set (CPACK_RPM_COMPONENT_INSTALL ON)
-  set (CPACK_ARCHIVE_COMPONENT_INSTALL ON)
-
   # Determine component name and display name based on build type
   set(COMPONENT_NAME ${GROUP_NAME})
   set(DISPLAY_NAME ${COMPONENT_NAME})
