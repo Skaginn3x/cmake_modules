@@ -1,5 +1,6 @@
 {
   "version": 4,
+  "comment": "NOTE: This preset file depends on this repository being submoduled into cmake directory !!!!!",
   "configurePresets": [
     {
       "name": "cfg-vcpkg",
