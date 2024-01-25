@@ -57,6 +57,10 @@ function(tfc_cpack_init LICENSE_PATH README_PATH)
 endfunction()
 
 function(tfc_add_component TARGET_NAME DESCRIPTION)
+  set (CPACK_DEB_COMPONENT_INSTALL ON)
+  set (CPACK_RPM_COMPONENT_INSTALL ON)
+  set (CPACK_ARCHIVE_COMPONENT_INSTALL ON)
+
   # Determine component name and display name based on build type
   set(COMPONENT_NAME ${TARGET_NAME})
   set(DISPLAY_NAME ${TARGET_NAME})
