@@ -56,16 +56,16 @@ function(tfc_cpack_init LICENSE_PATH README_PATH)
   include(CPack)
 endfunction()
 
-function(tfc_add_component TARGET_NAME DESCRIPTION)
+function(tfc_add_component_group TARGET_NAME GROUP_NAME DESCRIPTION)
   set (CPACK_DEB_COMPONENT_INSTALL ON)
   set (CPACK_RPM_COMPONENT_INSTALL ON)
   set (CPACK_ARCHIVE_COMPONENT_INSTALL ON)
 
   # Determine component name and display name based on build type
-  set(COMPONENT_NAME ${TARGET_NAME})
-  set(DISPLAY_NAME ${TARGET_NAME})
+  set(COMPONENT_NAME ${GROUP_NAME})
+  set(DISPLAY_NAME ${COMPONENT_NAME})
   if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(COMPONENT_NAME "${TARGET_NAME}-dbg")
+    set(COMPONENT_NAME "${COMPONENT_NAME}-dbg")
     set(DISPLAY_NAME "${TARGET_NAME} (Debug)")
   endif ()
 
@@ -84,4 +84,8 @@ function(tfc_add_component TARGET_NAME DESCRIPTION)
     GROUP ${COMPONENT_NAME}
     INSTALL_TYPES Full
   )
+endfunction()
+
+function(tfc_add_component TARGET_NAME DESCRIPTION)
+  tfc_add_component_group(${TARGET_NAME} ${TARGET_NAME} ${DESCRIPTION})
 endfunction()
