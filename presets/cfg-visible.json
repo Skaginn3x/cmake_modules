@@ -1,0 +1,321 @@
+{
+  "version": 6,
+  "include": [
+    "./cfg-build.json",
+    "./cfg-vcpkg.json"
+  ],
+  "configurePresets": [
+    {
+      "name": "gcc-debug-dynamic",
+      "description": "Used for developing purposes",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "ON"
+      },
+      "inherits": [
+        "cfg-vcpkg-gcc-dynamic",
+        "cfg-build-dir",
+        "cfg-debug"
+      ]
+    },
+    {
+      "name": "clang-debug-dynamic",
+      "description": "Used for developing purposes",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "ON"
+      },
+      "inherits": [
+        "cfg-vcpkg-clang-dynamic",
+        "cfg-build-dir",
+        "cfg-debug"
+      ]
+    },
+    {
+      "name": "clang-debug",
+      "generator": "Ninja",
+      "inherits": [
+        "cfg-vcpkg-clang",
+        "cfg-build-dir",
+        "cfg-debug"
+      ]
+    },
+    {
+      "name": "clang-release",
+      "generator": "Ninja",
+      "inherits": [
+        "cfg-vcpkg-clang",
+        "cfg-build-dir",
+        "cfg-release"
+      ]
+    },
+    {
+      "name": "gcc-release",
+      "generator": "Ninja",
+      "inherits": [
+        "cfg-vcpkg",
+        "cfg-build-dir",
+        "cfg-release"
+      ]
+    },
+    {
+      "name": "gcc-debug",
+      "generator": "Ninja",
+      "inherits": [
+        "cfg-vcpkg",
+        "cfg-build-dir",
+        "cfg-debug"
+      ]
+    },
+    {
+      "name": "pack-gcc-debug",
+      "inherits": [
+        "gcc-debug",
+        "cfg-enable-docs",
+        "cfg-enable-static"
+      ],
+      "cacheVariables": {
+        "BUILD_TESTING": "OFF",
+        "BUILD_EXAMPLES": "OFF"
+      }
+    },
+    {
+      "name": "pack-gcc-release",
+      "inherits": [
+        "gcc-release",
+        "cfg-enable-docs",
+        "cfg-enable-static"
+      ],
+      "cacheVariables": {
+        "BUILD_TESTING": "OFF",
+        "BUILD_EXAMPLES": "OFF"
+      }
+    },
+    {
+      "name": "pack-aarch64-gcc-debug",
+      "generator": "Ninja",
+      "inherits": [
+        "cfg-vcpkg-aarch64",
+        "pack-gcc-debug",
+        "cfg-enable-static"
+      ]
+    },
+    {
+      "name": "pack-aarch64-gcc-release",
+      "generator": "Ninja",
+      "inherits": [
+        "cfg-vcpkg-aarch64",
+        "pack-gcc-release",
+        "cfg-enable-static"
+      ]
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "clang-debug-dynamic",
+      "configurePreset": "clang-debug-dynamic"
+    },
+    {
+      "name": "gcc-debug-dynamic",
+      "configurePreset": "gcc-debug-dynamic"
+    },
+    {
+      "name": "clang-debug",
+      "configurePreset": "clang-debug"
+    },
+    {
+      "name": "clang-release",
+      "configurePreset": "clang-release"
+    },
+    {
+      "name": "gcc-debug",
+      "configurePreset": "gcc-debug"
+    },
+    {
+      "name": "gcc-release",
+      "configurePreset": "gcc-release"
+    },
+    {
+      "name": "pack-gcc-debug",
+      "configurePreset": "pack-gcc-debug"
+    },
+    {
+      "name": "pack-gcc-release",
+      "configurePreset": "pack-gcc-release"
+    },
+    {
+      "name": "pack-aarch64-gcc-debug",
+      "configurePreset": "pack-aarch64-gcc-debug"
+    },
+    {
+      "name": "pack-aarch64-gcc-release",
+      "configurePreset": "pack-aarch64-gcc-release"
+    },
+    {
+      "name": "build-docs",
+      "configurePreset": "pack-gcc-debug",
+      "targets": [
+        "Doxygen",
+        "ReadTheDocs"
+      ]
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "common",
+      "hidden": true,
+      "output": {"outputOnFailure": true},
+      "execution": {"noTestsAction": "error", "stopOnFailure": true}
+    },
+    {
+      "name": "clang-debug-dynamic",
+      "configurePreset": "clang-debug-dynamic",
+      "inherits": ["common"]
+    },
+    {
+      "name": "gcc-debug-dynamic",
+      "configurePreset": "gcc-debug-dynamic",
+      "inherits": ["common"]
+    },
+    {
+      "name": "clang-debug",
+      "configurePreset": "clang-debug",
+      "inherits": ["common"]
+    },
+    {
+      "name": "clang-release",
+      "configurePreset": "clang-release",
+      "inherits": ["common"]
+    },
+    {
+      "name": "gcc-debug",
+      "configurePreset": "gcc-debug",
+      "inherits": ["common"]
+    },
+    {
+      "name": "gcc-release",
+      "configurePreset": "gcc-release",
+      "inherits": ["common"]
+    },
+    {
+      "name": "pack-gcc-debug",
+      "configurePreset": "pack-gcc-debug",
+      "inherits": ["common"]
+    },
+    {
+      "name": "pack-gcc-release",
+      "configurePreset": "pack-gcc-release",
+      "inherits": ["common"]
+    }
+  ],
+  "packagePresets": [
+    {
+      "name": "linux-common",
+      "hidden": true,
+      "generators": [ "TGZ", "DEB", "RPM" ]
+    },
+    {
+      "name": "gcc-debug",
+      "configurePreset": "pack-gcc-debug",
+      "inherits": [ "linux-common" ]
+    },
+    {
+      "name": "gcc-release",
+      "configurePreset": "pack-gcc-release",
+      "inherits": [ "linux-common" ]
+    },
+    {
+      "name": "aarch64-gcc-debug",
+      "configurePreset": "pack-aarch64-gcc-debug",
+      "inherits": [ "linux-common" ]
+    },
+    {
+      "name": "aarch64-gcc-release",
+      "configurePreset": "pack-aarch64-gcc-release",
+      "inherits": [ "linux-common" ]
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "workflow-docs",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "pack-gcc-debug"
+        },
+        {
+          "type": "build",
+          "name": "build-docs"
+        }
+      ]
+    },
+    {
+      "name": "x86_64-gcc-debug",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "pack-gcc-debug"
+        },
+        {
+          "type": "build",
+          "name": "pack-gcc-debug"
+        },
+        {
+          "type": "package",
+          "name": "gcc-debug"
+        }
+      ]
+    },
+    {
+      "name": "x86_64-gcc-release",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "pack-gcc-release"
+        },
+        {
+          "type": "build",
+          "name": "pack-gcc-release"
+        },
+        {
+          "type": "package",
+          "name": "gcc-release"
+        }
+      ]
+    },
+    {
+      "name": "aarch64-gcc-debug",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "pack-aarch64-gcc-debug"
+        },
+        {
+          "type": "build",
+          "name": "pack-aarch64-gcc-debug"
+        },
+        {
+          "type": "package",
+          "name": "aarch64-gcc-debug"
+        }
+      ]
+    },
+    {
+      "name": "aarch64-gcc-release",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "pack-aarch64-gcc-release"
+        },
+        {
+          "type": "build",
+          "name": "pack-aarch64-gcc-release"
+        },
+        {
+          "type": "package",
+          "name": "aarch64-gcc-release"
+        }
+      ]
+    }
+  ]
+}

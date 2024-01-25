@@ -5,9 +5,9 @@
       "name": "cfg-vcpkg",
       "hidden": true,
       "cacheVariables": {
-        "VCPKG_INSTALLED_DIR": "${fileDir}/build/${presetName}/vcpkg-sysroot",
+        "VCPKG_INSTALLED_DIR": "${sourceDir}/build/${presetName}/vcpkg-sysroot",
         "CMAKE_TOOLCHAIN_FILE": "/opt/vcpkg/scripts/buildsystems/vcpkg.cmake",
-        "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${fileDir}/cmake/toolchains/x64-linux-gcc.cmake",
+        "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${fileDir}/../toolchains/x64-linux-gcc.cmake",
         "VCPKG_TARGET_TRIPLET": "x64-linux-gcc"
       }
     },
@@ -31,7 +31,7 @@
       ],
       "description": "vcpkg clang compiled with libc++.",
       "cacheVariables": {
-        "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${fileDir}/cmake/toolchains/x64-linux-clang.cmake",
+        "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${fileDir}/../toolchains/x64-linux-clang.cmake",
         "VCPKG_TARGET_TRIPLET": "x64-linux-clang"
       }
     },
@@ -65,7 +65,7 @@
       ],
       "cacheVariables": {
         "VCPKG_TARGET_TRIPLET": "arm64-linux",
-        "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${fileDir}/cmake/toolchains/aarch64-linux-gcc.cmake"
+        "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${fileDir}/../toolchains/aarch64-linux-gcc.cmake"
       }
     }
   ]

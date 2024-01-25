@@ -4,7 +4,7 @@
     {
       "name": "cfg-build-dir",
       "hidden": true,
-      "binaryDir": "${fileDir}/build/${presetName}"
+      "binaryDir": "${sourceDir}/build/${presetName}"
     },
     {
       "name": "cfg-debug",
