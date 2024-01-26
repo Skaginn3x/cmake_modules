@@ -1,5 +1,5 @@
 
-function(tfc_cpack_init PACKAGE_NAME LICENSE_PATH README_PATH)
+macro(tfc_cpack_init PACKAGE_NAME LICENSE_PATH README_PATH)
   set (CPACK_DEB_COMPONENT_INSTALL ON)
   set (CPACK_RPM_COMPONENT_INSTALL ON)
   set (CPACK_ARCHIVE_COMPONENT_INSTALL ON)
@@ -13,6 +13,7 @@ function(tfc_cpack_init PACKAGE_NAME LICENSE_PATH README_PATH)
   )
 
   set(CPACK_PACKAGE_NAME ${PACKAGE_NAME})
+  set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}${CPACK_COMPONENT_NAME}")
   set(CPACK_PACKAGE_VENDOR Skaginn 3X)
   set(CPACK_PACKAGE_CONTACT "Skaginn 3X <software@skaginn3x.com>")
   set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${PROJECT_DESCRIPTION})
@@ -53,7 +54,7 @@ function(tfc_cpack_init PACKAGE_NAME LICENSE_PATH README_PATH)
   set(CPACK_RESOURCE_FILE_README ${README_PATH})
 
   include(CPack)
-endfunction()
+endmacro()
 
 function(tfc_add_component_group TARGET_NAME GROUP_NAME DESCRIPTION)
   # Determine component name and display name based on build type
