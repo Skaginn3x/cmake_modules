@@ -3,7 +3,7 @@
 #include <string_view>
 #include <tfc/stx/string_view_join.hpp>
 
-namespace tfc::base{
+namespace @NAMESPACE@::base{
 struct version {
   static constexpr std::string_view git_repo = "@GIT_REPO@";
   static constexpr std::string_view git_hash = "@GIT_HASH@";
@@ -52,4 +52,4 @@ private:
   static constexpr std::string_view newline{ "\n" };
   static constexpr std::string_view space_dash_space{ " - " };
 };
-}  // namespace tfc::base
+}  // namespace @NAMESPACE@::base
