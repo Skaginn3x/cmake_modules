@@ -39,7 +39,7 @@ if(GIT_FOUND)
             OUTPUT_STRIP_TRAILING_WHITESPACE
     )
     execute_process(
-            COMMAND date +"%Y-%M-%d %H:%M:%S"
+            COMMAND date +"%Y-%m-%d %H:%M:%S"
             OUTPUT_VARIABLE BUILD_DATE
             OUTPUT_STRIP_TRAILING_WHITESPACE
     )
@@ -60,6 +60,7 @@ message(STATUS "GIT_BRANCH: ${GIT_BRANCH}")
 message(STATUS "GIT_TAG: ${GIT_TAG}")
 message(STATUS "GIT_IS_DIRTY: ${GIT_IS_DIRTY}")
 message(STATUS "GIT_COMMIT_DATE: ${GIT_COMMIT_DATE}")
+message(STATUS "BUILD_DATE: ${BUILD_DATE}")
 
 # generate file version.hpp based on version.hpp.in
 configure_file(
