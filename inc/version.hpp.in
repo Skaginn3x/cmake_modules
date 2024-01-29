@@ -25,7 +25,7 @@ struct version {
   static constexpr auto make_version_string() noexcept -> std::string_view {
     static constexpr auto git_info{
     // clang-format off
-      stx::string_view_join_v<
+      tfc::stx::string_view_join_v<
         git_repo, newline,
         build_date_str, build_date, newline,
         commit_date_str, git_commit_date, newline,
@@ -38,7 +38,7 @@ struct version {
     if constexpr (git_is_dirty.empty()) {
       return git_info;
     } else {
-      return stx::string_view_join_v<git_info, space_dash_space, git_is_dirty>;
+      return tfc::stx::string_view_join_v<git_info, space_dash_space, git_is_dirty>;
     }
   }
 private:
