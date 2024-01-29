@@ -67,9 +67,14 @@ message(STATUS "GIT_IS_DIRTY: ${GIT_IS_DIRTY}")
 message(STATUS "GIT_COMMIT_DATE: ${GIT_COMMIT_DATE}")
 message(STATUS "BUILD_DATE: ${BUILD_DATE}")
 
+function(priv_get_directory DIRECTORY)
+  set(${DIRECTORY} ${CMAKE_CURRENT_FUNCTION_LIST_DIR} PARENT_SCOPE)
+endfunction()
+priv_get_directory(THIS_DIRECTORY)
+
 # generate file version.hpp based on version.hpp.in
 configure_file(
-  ${IN_FILE}
+  ${THIS_DIRECTORY}/inc/version.hpp.in
   ${OUT_FILE}
   @ONLY
 )
