@@ -13,7 +13,6 @@ set(CMAKE_CXX_COMPILER "/cpproot/bin/aarch64-linux-gnu-g++")
 set(CMAKE_FIND_ROOT_PATH /cpproot/aarch64-linux-gnu)
 set(CMAKE_INCLUDE_PATH  /cpproot/include/aarch64-linux-gnu)
 set(CMAKE_LIBRARY_PATH  /cpproot/lib/aarch64-linux-gnu)
-set(CMAKE_PROGRAM_PATH  /cpproot/bin/aarch64-linux-gnu)
 set(CMAKE_AR /cpproot/bin/aarch64-linux-gnu-ar)
 set(CMAKE_STRIP /cpproot/bin/aarch64-linux-gnu-strip)
 
