@@ -48,6 +48,18 @@
       }
     },
     {
+      "name": "cfg-vcpkg-clang-dynamic-mold",
+      "hidden": true,
+      "inherits": [
+        "cfg-vcpkg-clang"
+      ],
+      "cacheVariables": {
+        "VCPKG_TARGET_TRIPLET": "x64-linux-clang-dynamic-mold",
+        "BUILD_SHARED_LIBS": "ON",
+        "LINK_SHARED_LIBS": "ON"
+      }
+    },
+    {
       "name": "cfg-vcpkg-gcc-dynamic",
       "hidden": true,
       "inherits": [
@@ -55,6 +67,16 @@
       ],
       "cacheVariables": {
         "VCPKG_TARGET_TRIPLET": "x64-linux-gcc-dynamic"
+      }
+    },
+    {
+      "name": "cfg-vcpkg-gcc-dynamic-mold",
+      "hidden": true,
+      "inherits": [
+        "cfg-vcpkg"
+      ],
+      "cacheVariables": {
+        "VCPKG_TARGET_TRIPLET": "x64-linux-gcc-dynamic-mold"
       }
     },
     {

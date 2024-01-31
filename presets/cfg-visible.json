@@ -19,7 +19,33 @@
       ]
     },
     {
+      "name": "gcc-debug-dynamic-mold",
+      "description": "Used for developing purposes",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "ON"
+      },
+      "inherits": [
+        "cfg-vcpkg-gcc-dynamic-mold",
+        "cfg-build-dir",
+        "cfg-debug"
+      ]
+    },
+    {
       "name": "clang-debug-dynamic",
+      "description": "Used for developing purposes",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "ON"
+      },
+      "inherits": [
+        "cfg-vcpkg-clang-dynamic",
+        "cfg-build-dir",
+        "cfg-debug"
+      ]
+    },
+    {
+      "name": "clang-debug-dynamic-mold",
       "description": "Used for developing purposes",
       "generator": "Ninja",
       "cacheVariables": {
