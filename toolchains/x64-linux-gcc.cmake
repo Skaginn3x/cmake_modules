@@ -2,7 +2,8 @@ set(CMAKE_SYSTEM_PROCESSOR x64)
 set(COMPILER_MINIMUM_VERSION 13)
 
 if(EXISTS "/cpproot/bin/gcc")
-  set(CMAKE_SYSROOT /cpproot)
+  #  TODO compile libc in container
+  #  set(CMAKE_SYSROOT /cpproot)
   set(CMAKE_C_COMPILER /cpproot/bin/gcc)
   set(CMAKE_CXX_COMPILER /cpproot/bin/g++)
   set(ENV{CC} /cpproot/bin/gcc)

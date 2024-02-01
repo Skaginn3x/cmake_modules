@@ -2,7 +2,8 @@ set(CMAKE_SYSTEM_PROCESSOR x64)
 set(COMPILER_MINIMUM_VERSION 17)
 
 if (EXISTS "/cpproot/bin/clang")
-  set(CMAKE_SYSROOT /cpproot)
+#  TODO compile libc in container
+#  set(CMAKE_SYSROOT /cpproot)
   set(CMAKE_C_COMPILER /cpproot/bin/clang)
   set(CMAKE_CXX_COMPILER /cpproot/bin/clang++)
   set(CMAKE_CXX_FLAGS "-stdlib=libc++ -I/cpproot/include/ -I/cpproot/include/x86_64-unknown-linux-gnu/c++/v1")
