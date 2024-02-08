@@ -1,4 +1,4 @@
-function(tfc_enable_debug_symbols target)
+function(tfc_allow_debug_symbols target)
   if (ENABLE_DEBUG_SYMBOLS_IN_RELEASE)
     target_compile_options(${target} PUBLIC -g)
   endif ()
