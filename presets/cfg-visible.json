@@ -56,7 +56,10 @@
         "cfg-vcpkg",
         "cfg-build-dir",
         "cfg-release"
-      ]
+      ],
+      "cacheVariables": {
+        "ENABLE_DEBUG_SYMBOLS_IN_RELEASE": "ON"
+      }
     },
     {
       "name": "gcc-debug",

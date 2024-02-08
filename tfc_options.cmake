@@ -85,9 +85,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
   option(ENABLE_DEBUG_SYMBOLS_IN_RELEASE "Compile with debug symbols for release build" OFF)
   add_feature_info("ENABLE_DEBUG_SYMBOLS_IN_RELEASE" ENABLE_DEBUG_SYMBOLS_IN_RELEASE
       "Compile with debug symbols for release build")
-  if (ENABLE_DEBUG_SYMBOLS_IN_RELEASE)
-    add_compile_options(-g)
-  endif ()
+  # Please refer to tfc_split_debug_info.cmake for more information
 endif ()
 
 
