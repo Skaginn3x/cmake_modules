@@ -31,7 +31,8 @@ struct version {
         commit_date_str, git_commit_date, newline,
         branch_str, git_branch, newline,
         hash_str, git_hash, newline,
-        tag_str, git_tag
+        tag_str, git_tag, newline,
+        author_str, git_author
       >
     // clang-format on
     };
