@@ -1,9 +1,3 @@
-function(tfc_allow_debug_symbols target)
-  if (ENABLE_DEBUG_SYMBOLS_IN_RELEASE)
-    target_compile_options(${target} PUBLIC -g)
-  endif ()
-endfunction()
-
 function(tfc_split_debug_info target)
   if (UNIX AND ENABLE_DEBUG_SYMBOLS_IN_RELEASE)
     if(NOT CMAKE_STRIP OR NOT CMAKE_OBJCOPY)
