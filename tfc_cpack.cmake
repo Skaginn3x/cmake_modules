@@ -8,6 +8,9 @@ macro(tfc_cpack_init PACKAGE_NAME LICENSE_PATH README_PATH)
   set (CPACK_RPM_COMPONENT_INSTALL ON)
   set (CPACK_ARCHIVE_COMPONENT_INSTALL ON)
 
+  set(CPACK_RPM_FILE_NAME RPM-DEFAULT)
+  set(CPACK_DEBIAN_FILE_NAME DEB-DEFAULT)
+
   # get glibc version from host
   execute_process(
       COMMAND bash -c "ldd --version | awk '/ldd/{print $NF;exit}'"
@@ -17,7 +20,6 @@ macro(tfc_cpack_init PACKAGE_NAME LICENSE_PATH README_PATH)
   )
 
   set(CPACK_PACKAGE_NAME ${PACKAGE_NAME})
-  set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}${CPACK_COMPONENT_NAME}")
   set(CPACK_PACKAGE_VENDOR Skaginn 3X)
   set(CPACK_PACKAGE_CONTACT "Skaginn 3X <software@skaginn3x.com>")
   set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${PROJECT_DESCRIPTION})
