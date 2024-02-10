@@ -56,10 +56,7 @@
         "cfg-vcpkg",
         "cfg-build-dir",
         "cfg-release"
-      ],
-      "cacheVariables": {
-        "ENABLE_DEBUG_SYMBOLS_IN_RELEASE": "ON"
-      }
+      ]
     },
     {
       "name": "gcc-debug",
@@ -91,7 +88,8 @@
       ],
       "cacheVariables": {
         "BUILD_TESTING": "OFF",
-        "BUILD_EXAMPLES": "OFF"
+        "BUILD_EXAMPLES": "OFF",
+        "ENABLE_DEBUG_SYMBOLS_IN_RELEASE": "ON"
       }
     },
     {
@@ -144,7 +142,8 @@
     },
     {
       "name": "pack-gcc-release",
-      "configurePreset": "pack-gcc-release"
+      "configurePreset": "pack-gcc-release",
+      "jobs": 1
     },
     {
       "name": "pack-aarch64-gcc-debug",
