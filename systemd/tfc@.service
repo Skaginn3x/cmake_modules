@@ -13,7 +13,9 @@ Restart=always
 RestartSec=1s
 RuntimeDirectory=tfc
 ConfigurationDirectory=tfc
+ConfigurationDirectory=tfc
 PrivateTmp=true
+ProtectSystem=yes # Cannot be set to full or strict, requires acess to /etc/tfc to facilitate configuration changes
 
 [Install]
 WantedBy=multi-user.target
