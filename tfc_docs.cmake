@@ -36,8 +36,10 @@ function(tfc_add_docs FILE_PATH DOCS_DIR)
   file(COPY ${FILES_TO_COPY} DESTINATION ${DOCS_DIR})
 endfunction()
 
-function(set_docs SPHINX_SOURCE ENABLE_DOXYGEN)
-  find_package(Doxygen REQUIRED)
+function(tfc_docs_init SPHINX_SOURCE ENABLE_DOXYGEN)
+  if (ENABLE_DOXYGEN)
+    find_package(Doxygen REQUIRED)
+  endif ()
 
   # List all header files so that build fails if some are missing
   # List of all public headers in the project,
