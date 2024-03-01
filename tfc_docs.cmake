@@ -24,10 +24,10 @@ endfunction()
 function(tfc_add_example EXAMPLE_TARGET cpp_file)
   tfc_add_example_no_test(${EXAMPLE_TARGET} ${cpp_file})
   add_test(
-    NAME
-    ${EXAMPLE_TARGET}
-    COMMAND
-    ${EXAMPLE_TARGET}
+          NAME
+          ${EXAMPLE_TARGET}
+          COMMAND
+          ${EXAMPLE_TARGET}
   )
 endfunction()
 
@@ -36,10 +36,9 @@ function(tfc_add_docs FILE_PATH DOCS_DIR)
   file(COPY ${FILES_TO_COPY} DESTINATION ${DOCS_DIR})
 endfunction()
 
-function(tfc_docs_init SPHINX_SOURCE ENABLE_DOXYGEN)
-  if (ENABLE_DOXYGEN)
-    find_package(Doxygen REQUIRED)
-  endif ()
+function(init_doxygen)
+
+  find_package(Doxygen REQUIRED)
 
   # List all header files so that build fails if some are missing
   # List of all public headers in the project,
@@ -58,42 +57,44 @@ function(tfc_docs_init SPHINX_SOURCE ENABLE_DOXYGEN)
   endforeach ()
 
   # Join all the public header directories in a format that doxygen understands
+
   list(JOIN TFC_FRAMEWORK_PUBLIC_HEADER_DIRS " " TFC_FRAMEWORK_PUBLIC_HEADER_DIRS_FORMATTED)
   list(JOIN TFC_FRAMEWORK_EXAMPLES " " TFC_FRAMEWORK_EXAMPLES_FORMATTED)
 
-  if (ENABLE_DOXYGEN)
-    set(DOXYGEN_INPUT_DIR ${TFC_FRAMEWORK_PUBLIC_HEADER_DIRS_FORMATTED})
-    set(DOXYGEN_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/sphinx/doxygen)
-    set(DOXYGEN_INDEX_FILE ${DOXYGEN_OUTPUT_DIR}/html/index.html)
-
-    set(DOXYFILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
-    set(DOXYFILE_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
-  endif ()
-
+  set(DOXYGEN_INPUT_DIR ${TFC_FRAMEWORK_PUBLIC_HEADER_DIRS_FORMATTED})
+  set(DOXYGEN_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/sphinx/doxygen)
+  set(DOXYGEN_INDEX_FILE ${DOXYGEN_OUTPUT_DIR}/html/index.html)
+  set(DOXYFILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
+  set(DOXYFILE_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
   set(DOXYGEN_ASSETS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/doxygen_assets)
   set(DOXYGEN_EXTRA_STYLE_SHEET "${DOXYGEN_ASSETS_DIR}/css/doxygen-awesome.css ${DOXYGEN_ASSETS_DIR}/css/doxygen-awesome-sidebar-only.css")
   set(DOXYGEN_LOGO ${DOXYGEN_ASSETS_DIR}/images/s3x.svg)
   message("FORMATTED EXAMPLES ${TFC_FRAMEWORK_EXAMPLES_FORMATTED}")
   set(DOXYGEN_EXAMPLES ${TFC_FRAMEWORK_EXAMPLES_FORMATTED})
 
-  if (ENABLE_DOXYGEN)
-    #Replace variables inside @@ with the current values
-    configure_file(${DOXYFILE_IN} ${DOXYFILE_OUT} @ONLY)
+  #Replace variables inside @@ with the current values
+  configure_file(${DOXYFILE_IN} ${DOXYFILE_OUT} @ONLY)
 
-    file(MAKE_DIRECTORY ${DOXYGEN_OUTPUT_DIR}) #Doxygen won't create this for us
-    add_custom_command(OUTPUT ${DOXYGEN_INDEX_FILE}
-            DEPENDS ${TFC_FRAMEWORK_PUBLIC_HEADERS} # Currently not populated
-            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
-            MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
-            COMMENT "Generating docs")
+  file(MAKE_DIRECTORY ${DOXYGEN_OUTPUT_DIR}) #Doxygen won't create this for us
+  add_custom_command(OUTPUT ${DOXYGEN_INDEX_FILE}
+          DEPENDS ${TFC_FRAMEWORK_PUBLIC_HEADERS} # Currently not populated
+          COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
+          MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
+          COMMENT "Generating docs")
 
-    add_custom_target(Doxygen ALL DEPENDS ${DOXYGEN_INDEX_FILE})
-    set_target_properties(Doxygen PROPERTIES
-      EXCLUDE_FROM_ALL ON
-    )
-  endif ()
-  
+  add_custom_target(Doxygen ALL DEPENDS ${DOXYGEN_INDEX_FILE})
+  set_target_properties(Doxygen PROPERTIES
+          EXCLUDE_FROM_ALL ON
+  )
+
+  add_custom_target(InstallDoxygen ALL DEPENDS ${DOXYGEN_INDEX_FILE})
+
+endfunction()
+
+function(read_the_docs SPHINX_SOURCE)
+
   # Let's create the read the docs html
+
   # Create a virtual environment for python using this method:
   set(VENV_PATH "${CMAKE_CURRENT_BINARY_DIR}/.venv")
   # https://discourse.cmake.org/t/possible-to-create-a-python-virtual-env-from-cmake-and-then-find-it-with-findpython3/1132
@@ -111,12 +112,11 @@ function(tfc_docs_init SPHINX_SOURCE ENABLE_DOXYGEN)
   find_package (Python3 COMPONENTS Interpreter Development)
 
   add_custom_command(
-    OUTPUT venv_setup
-    COMMAND ${VENV_PATH}/bin/pip install -r requirements.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+          OUTPUT venv_setup
+          COMMAND ${VENV_PATH}/bin/pip install -r requirements.txt
+          WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
   )
 
-  # set(SPHINX_SOURCE ${CMAKE_CURRENT_SOURCE_DIR})
   set(SPHINX_BUILD ${CMAKE_CURRENT_BINARY_DIR}/sphinx)
   set(SPHINX_INDEX_FILE ${SPHINX_BUILD}/index.html)
   set(SPHINX_EXECUTABLE "${VENV_PATH}/bin/sphinx-build")
@@ -126,62 +126,43 @@ function(tfc_docs_init SPHINX_SOURCE ENABLE_DOXYGEN)
   # - Our doc files have been updated
   # - The Sphinx config has been updated
   add_custom_command(OUTPUT ${SPHINX_INDEX_FILE}
-    COMMAND
-      ${SPHINX_EXECUTABLE} -b html
-      # Tell Breathe where to find the Doxygen output
-      -Dbreathe_projects.tfc=${DOXYGEN_OUTPUT_DIR}/xml
-      ${SPHINX_SOURCE} ${SPHINX_BUILD}
-    WORKING_DIRECTORY 
-      ${CMAKE_CURRENT_BINARY_DIR}
-    DEPENDS 
-      venv_setup
-      # Other docs files you want to track should go here (or in some variable)
-      ${CMAKE_CURRENT_SOURCE_DIR}/index.rst
-      # ${CMAKE_CURRENT_SOURCE_DIR}/design/cm.md
-      ${DOXYGEN_INDEX_FILE}
-    MAIN_DEPENDENCY 
-      ${SPHINX_SOURCE}/conf.py
-    COMMENT 
-      "Generating documentation with Sphinx"
-  )
+          COMMAND
+          ${SPHINX_EXECUTABLE} -b html
+          # Tell Breathe where to find the Doxygen output
+          -Dbreathe_projects.tfc=${DOXYGEN_OUTPUT_DIR}/xml
+          ${SPHINX_SOURCE} ${SPHINX_BUILD}
+          WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+          DEPENDS venv_setup
+          # Other docs files you want to track should go here (or in some variable)
+          ${CMAKE_CURRENT_SOURCE_DIR}/index.rst
+          # ${CMAKE_CURRENT_SOURCE_DIR}/design/cm.md
+          # ${DOXYGEN_INDEX_FILE}
+          MAIN_DEPENDENCY ${SPHINX_SOURCE}/conf.py
+          COMMENT "Generating documentation with Sphinx")
 
   # Nice named target so we can run the job easily
   add_custom_target(ReadTheDocs ALL DEPENDS ${SPHINX_INDEX_FILE})
-  set_target_properties(ReadTheDocs PROPERTIES EXCLUDE_FROM_ALL ON)
+  set_target_properties(ReadTheDocs PROPERTIES
+          EXCLUDE_FROM_ALL ON
+  )
+
+  add_custom_target(InstallDocumentation ALL DEPENDS ReadTheDocs)
 
   # Add an install target to install the docs
   include(GNUInstallDirs)
-
-  # ReadTheDocs needs to be executed before tfc-docs is installed because Doxygen needs to be executed in order for documentation to be generated
-  add_custom_target(InstallDocumentation ALL DEPENDS ReadTheDocs)
-
-  set(COMPONENT_NAME "docs")
-  set(DISPLAY_NAME ${COMPONENT_NAME})
-
-  if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(COMPONENT_NAME "${COMPONENT_NAME}-dbg")
-    set(DISPLAY_NAME "${TARGET_NAME} (Debug)")
-  endif ()
-
-install(
-  DIRECTORY
-    ${SPHINX_BUILD}/
-  DESTINATION
-    ${CMAKE_INSTALL_DATAROOTDIR}/cockpit/${PROJECT_NAME}
-  CONFIGURATIONS
-    Release
-  COMPONENT
-    ${COMPONENT_NAME}
+  install(
+          DIRECTORY
+          ${SPHINX_BUILD}/
+          DESTINATION
+          ${CMAKE_INSTALL_DATAROOTDIR}/cockpit/${PROJECT_NAME}
+          CONFIGURATIONS Release
   )
-
-install(
-  FILES
-    manifest.json
-  DESTINATION
-    ${CMAKE_INSTALL_DATAROOTDIR}/cockpit/${PROJECT_NAME}/
-  CONFIGURATIONS 
-    Release
+  install(
+          FILES
+          manifest.json
+          DESTINATION
+          ${CMAKE_INSTALL_DATAROOTDIR}/cockpit/${PROJECT_NAME}/
+          CONFIGURATIONS Release
   )
 
 endfunction()
-
