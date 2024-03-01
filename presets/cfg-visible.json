@@ -143,7 +143,12 @@
     {
       "name": "pack-gcc-release",
       "configurePreset": "pack-gcc-release",
-      "jobs": 1
+      "jobs": 1,
+      "targets" : [
+        "all",
+        "Doxygen",
+        "ReadTheDocs"
+      ]
     },
     {
       "name": "pack-aarch64-gcc-debug",
@@ -152,7 +157,12 @@
     {
       "name": "pack-aarch64-gcc-release",
       "configurePreset": "pack-aarch64-gcc-release",
-      "jobs": 1
+      "jobs": 1,
+      "targets" : [
+        "all",
+        "Doxygen",
+        "ReadTheDocs"
+      ]
     },
     {
       "name": "build-docs",
