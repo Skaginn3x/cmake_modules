@@ -83,9 +83,6 @@ function(init_doxygen)
           COMMENT "Generating docs")
 
   add_custom_target(Doxygen ALL DEPENDS ${DOXYGEN_INDEX_FILE})
-  set_target_properties(Doxygen PROPERTIES
-          EXCLUDE_FROM_ALL ON
-  )
 
   add_custom_target(InstallDoxygen ALL DEPENDS ${DOXYGEN_INDEX_FILE})
 
