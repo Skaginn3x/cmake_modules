@@ -109,9 +109,9 @@ function(read_the_docs SPHINX_SOURCE)
   find_package (Python3 COMPONENTS Interpreter Development)
 
   add_custom_command(
-          OUTPUT venv_setup
-          COMMAND ${VENV_PATH}/bin/pip install -r requirements.txt
-          WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+    OUTPUT venv_setup
+    COMMAND ${VENV_PATH}/bin/pip install -r requirements.txt
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
   )
 
   set(SPHINX_BUILD ${CMAKE_CURRENT_BINARY_DIR}/sphinx)
