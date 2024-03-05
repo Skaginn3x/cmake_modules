@@ -143,11 +143,11 @@ function(read_the_docs SPHINX_SOURCE)
   # Add an install target to install the docs
   include(GNUInstallDirs)
   install(
-          DIRECTORY
-          ${SPHINX_BUILD}/
-          DESTINATION
-          ${CMAKE_INSTALL_DATAROOTDIR}/cockpit/${PROJECT_NAME}
-          CONFIGURATIONS Release
+  DIRECTORY
+    ${SPHINX_BUILD}/
+  DESTINATION
+    ${CMAKE_INSTALL_DATAROOTDIR}/cockpit/${PROJECT_NAME}
+  CONFIGURATIONS Release
   )
   install(
           FILES
