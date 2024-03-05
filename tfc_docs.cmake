@@ -88,7 +88,7 @@ function(tfc_doxygen)
 
 endfunction()
 
-function(read_the_docs SPHINX_SOURCE)
+function(tfc_read_the_docs SPHINX_SOURCE)
 
   # Let's create the read the docs html
 
