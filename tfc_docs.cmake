@@ -150,11 +150,11 @@ function(read_the_docs SPHINX_SOURCE)
   CONFIGURATIONS Release
   )
   install(
-          FILES
-          manifest.json
-          DESTINATION
-          ${CMAKE_INSTALL_DATAROOTDIR}/cockpit/${PROJECT_NAME}/
-          CONFIGURATIONS Release
+  FILES
+    manifest.json
+  DESTINATION
+    ${CMAKE_INSTALL_DATAROOTDIR}/cockpit/${PROJECT_NAME}/
+  CONFIGURATIONS Release
   )
 
 endfunction()
