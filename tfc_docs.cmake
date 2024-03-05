@@ -36,7 +36,7 @@ function(tfc_add_docs FILE_PATH DOCS_DIR)
   file(COPY ${FILES_TO_COPY} DESTINATION ${DOCS_DIR})
 endfunction()
 
-function(init_doxygen)
+function(tfc_doxygen)
 
   find_package(Doxygen REQUIRED)
 
