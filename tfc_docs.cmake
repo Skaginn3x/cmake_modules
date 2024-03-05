@@ -139,11 +139,6 @@ function(read_the_docs SPHINX_SOURCE)
 
   # Nice named target so we can run the job easily
   add_custom_target(ReadTheDocs ALL DEPENDS ${SPHINX_INDEX_FILE})
-  set_target_properties(ReadTheDocs PROPERTIES
-          EXCLUDE_FROM_ALL ON
-  )
-
-  add_custom_target(InstallDocumentation ALL DEPENDS ReadTheDocs)
 
   # Add an install target to install the docs
   include(GNUInstallDirs)
