@@ -12,6 +12,12 @@ if (CCACHE_FOUND)
 endif ()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  # Weverything can include contradictory warnings, so we need to disable one of them
+  # We require all switch cases to be handled, so we don't need default case
+  # More info here: https://github.com/llvm/llvm-project/issues/81354
+  add_compile_options(
+    -Wno-switch-default
+  )
   if(CMAKE_BUILD_TYPE STREQUAL "Release")
     add_compile_options( -flto=thin )
   endif()
