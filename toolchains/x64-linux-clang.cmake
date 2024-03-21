@@ -1,5 +1,5 @@
 set(CMAKE_SYSTEM_PROCESSOR x64)
-set(COMPILER_MINIMUM_VERSION 17)
+set(COMPILER_MINIMUM_VERSION 18)
 
 if (EXISTS "/cpproot/bin/clang")
 #  TODO compile libc in container
