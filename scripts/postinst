@@ -33,3 +33,5 @@ if __name__ == "__main__":
 
   os.makedirs("/var/log/tfc", exist_ok=True, mode=0o775)
   shutil.chown("/var/log/tfc", user_name, user_name)
+
+  os.replace("/usr/local/share/dbus-1/system.d/tfc.conf", "/etc/dbus-1/system.d/tfc.conf")
