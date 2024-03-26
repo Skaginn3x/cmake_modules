@@ -1,5 +1,4 @@
 function(tfc_systemd_service_file_in_component EXE_TARGET COMPONENT DESCRIPTION)
-
   include(GNUInstallDirs)
 
   set(EXE_NAME ${EXE_TARGET})
@@ -13,16 +12,12 @@ function(tfc_systemd_service_file_in_component EXE_TARGET COMPONENT DESCRIPTION)
     COMPONENT ${COMPONENT}
     CONFIGURATIONS ${CMAKE_BUILD_TYPE}
   )
-
 endfunction()
 
 function(tfc_systemd_service_file EXE_TARGET DESCRIPTION)
-
   if (CMAKE_BUILD_TYPE STREQUAL "Release")
     tfc_systemd_service_file_in_component(${EXE_TARGET} ${EXE_TARGET} ${DESCRIPTION})
   else()
     tfc_systemd_service_file_in_component(${EXE_TARGET} "${EXE_TARGET}-dbg" ${DESCRIPTION})
   endif()
-
 endfunction()
-
