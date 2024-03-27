@@ -66,7 +66,7 @@ function(tfc_doxygen)
   set(DOXYGEN_INDEX_FILE ${DOXYGEN_OUTPUT_DIR}/html/index.html)
   set(DOXYFILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
   set(DOXYFILE_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
-  set(DOXYGEN_ASSETS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/doxygen_assets)
+  set(DOXYGEN_ASSETS_DIR ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/docs/doxygen_assets)
   set(DOXYGEN_EXTRA_STYLE_SHEET "${DOXYGEN_ASSETS_DIR}/css/doxygen-awesome.css ${DOXYGEN_ASSETS_DIR}/css/doxygen-awesome-sidebar-only.css")
   set(DOXYGEN_LOGO ${DOXYGEN_ASSETS_DIR}/images/s3x.svg)
   message("FORMATTED EXAMPLES ${TFC_FRAMEWORK_EXAMPLES_FORMATTED}")
@@ -110,7 +110,7 @@ function(tfc_read_the_docs SPHINX_SOURCE)
 
   add_custom_command(
     OUTPUT venv_setup
-    COMMAND ${VENV_PATH}/bin/pip install -r requirements.txt
+    COMMAND ${VENV_PATH}/bin/pip install -r ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/docs/requirements.txt
     WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
   )
 
