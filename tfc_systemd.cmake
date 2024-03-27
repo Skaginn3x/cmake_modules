@@ -10,10 +10,10 @@ function(tfc_systemd_service_file_in_component EXE_TARGET COMPONENT DESCRIPTION)
     FILES "${CMAKE_BINARY_DIR}/systemd/${EXE_TARGET}@.service"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/systemd/system/"
     COMPONENT ${COMPONENT}
-    CONFIGURATIONS Release
+    CONFIGURATIONS ${CMAKE_BUILD_TYPE}
   )
 endfunction()
 
 function(tfc_systemd_service_file EXE_TARGET DESCRIPTION)
-  tfc_systemd_service_file_in_component(${EXE_TARGET} ${EXE_TARGET} ${DESCRIPTION})
+  tfc_systemd_service_file_in_component(${EXE_TARGET} "${EXE_TARGET}-$CMAKE_BUILD_TYPE}" ${DESCRIPTION})
 endfunction()
