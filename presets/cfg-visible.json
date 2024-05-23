@@ -118,7 +118,8 @@
     },
     {
       "name": "gcc-debug-dynamic",
-      "configurePreset": "gcc-debug-dynamic"
+      "configurePreset": "gcc-debug-dynamic",
+      "jobs": 1
     },
     {
       "name": "clang-debug",
@@ -130,11 +131,13 @@
     },
     {
       "name": "gcc-debug",
-      "configurePreset": "gcc-debug"
+      "configurePreset": "gcc-debug",
+      "jobs": 1
     },
     {
       "name": "gcc-release",
-      "configurePreset": "gcc-release"
+      "configurePreset": "gcc-release",
+      "jobs": 1
     },
     {
       "name": "pack-gcc-debug",
