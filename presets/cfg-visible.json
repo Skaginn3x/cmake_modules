@@ -168,7 +168,7 @@
       "name": "common",
       "hidden": true,
       "output": {"outputOnFailure": true},
-      "execution": {"noTestsAction": "error", "stopOnFailure": true}
+      "execution": {"noTestsAction": "error"}
     },
     {
       "name": "clang-debug-dynamic",
