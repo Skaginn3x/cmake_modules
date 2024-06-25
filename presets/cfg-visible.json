@@ -167,7 +167,7 @@
     {
       "name": "common",
       "hidden": true,
-      "output": {"outputOnFailure": true},
+      "output": {"outputOnFailure": true, "outputJUnitFile": "test-results.xml"},
       "execution": {"noTestsAction": "error"}
     },
     {
